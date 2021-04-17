@@ -1,0 +1,22 @@
+parametersSchema:
+    behaviour: structure([
+        expressions: listOf(string())
+        extensions: listOf(string())
+    ])
+
+parameters:
+    behaviour:
+        expressions: ["/^.+(Service)$/", "/^.+(Stage)$/"]
+        extensions: ["feature", "features"]
+    stubFiles:
+        - stubs/BehaviourAnnotation.phpstub
+
+rules:
+	- yohanlaborda\PHPStan\Rule\BehaviourAnnotationRule
+
+services:
+	-
+		class: yohanlaborda\PHPStan\Rule\BehaviourAnnotationRule
+		tags: [phpstan.rules.behaviourAnnotation]
+	-
+	    factory: yohanlaborda\PHPStan\Configuration\BehaviourConfiguration(%behaviour.expressions%, %behaviour.extensions%)

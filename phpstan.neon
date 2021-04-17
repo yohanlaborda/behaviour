@@ -1,0 +1,10 @@
+parameters:
+	level: 8
+	paths:
+		- src
+		- tests
+		- PHPStan
+	excludePaths:
+		- tests/debug
+includes:
+    - extension.neon

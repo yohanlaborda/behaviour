@@ -1,0 +1,44 @@
+{
+    "name": "yohanlaborda/behaviour",
+    "description": "Rules for PHPStan",
+    "type": "library",
+    "license": ["MIT"],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "phpstan/phpstan": "^0.12"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "authors": [
+        {
+            "name": "Yohan Laborda",
+            "email": "info@yohanlaborda.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "extensions.neon"
+            ]
+        }
+    },
+    "scripts": {
+        "analyse": "phpstan analyse",
+        "tests": "phpunit"
+    },
+    "autoload": {
+        "psr-4": {
+            "yohanlaborda\\behaviour\\": "src/",
+            "yohanlaborda\\PHPStan\\": "PHPStan/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "yohanlaborda\\behaviour\\Tests\\": "tests/"
+        }
+    }
+}
