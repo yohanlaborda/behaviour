@@ -1,0 +1,2 @@
+# behaviour
+Rules for PHPStan
