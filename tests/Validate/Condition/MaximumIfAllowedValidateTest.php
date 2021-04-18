@@ -1,6 +1,6 @@
 <?php
 
-namespace yohanlaborda\behaviour\Tests\Validate\ManyIf;
+namespace yohanlaborda\behaviour\Tests\Validate\Condition;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
@@ -10,10 +10,10 @@ use PHPStan\Analyser\Scope;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Error\MaximumIfAllowedError;
-use yohanlaborda\behaviour\Validate\ManyIf\MaximumIfAllowedValidate;
+use yohanlaborda\behaviour\Validate\Condition\MaximumIfAllowedValidate;
 
 /**
- * @covers \yohanlaborda\behaviour\Validate\ManyIf\MaximumIfAllowedValidate
+ * @covers \yohanlaborda\behaviour\Validate\Condition\MaximumIfAllowedValidate
  */
 final class MaximumIfAllowedValidateTest extends TestCase
 {

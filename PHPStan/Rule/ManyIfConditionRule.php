@@ -6,7 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\FunctionLike;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
-use yohanlaborda\behaviour\Validate\ManyIf\MaximumIfAllowedValidate;
+use yohanlaborda\behaviour\Validate\Condition\MaximumIfAllowedValidate;
 use yohanlaborda\behaviour\Validate\NodeIsClassMethodValidate;
 use yohanlaborda\behaviour\Validate\ScopeIsClassValidate;
 use yohanlaborda\behaviour\Validator\ValidateList;

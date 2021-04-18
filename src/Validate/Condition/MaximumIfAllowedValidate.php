@@ -1,6 +1,6 @@
 <?php
 
-namespace yohanlaborda\behaviour\Validate\ManyIf;
+namespace yohanlaborda\behaviour\Validate\Condition;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
