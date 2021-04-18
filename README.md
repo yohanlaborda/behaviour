@@ -30,6 +30,7 @@ parameters:
 +    behaviour:
 +        expressions: ["/^.+(Service)$/", "/^.+(Stage)$/"]
 +        extensions: ["feature", "features"]
++        maximumIfAllowed: 3
 ```
 
 ### Expressions
@@ -52,7 +53,17 @@ parameters:
 +        extensions: ["feature", "features"]
 ```
 
-## Usage
+### Maximum if allowed
+
+Number of ifs allowed in a method of a class.
+
+```diff
+parameters:
++    behaviour:
++        maximumIfAllowed: 3
+```
+
+## Usage Behaviour
 
 ### `Behaviour(file="filePath")`
 

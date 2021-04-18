@@ -2,21 +2,34 @@ parametersSchema:
     behaviour: structure([
         expressions: listOf(string())
         extensions: listOf(string())
+        maximumIfAllowed: int()
     ])
 
 parameters:
     behaviour:
         expressions: ["/^.+(Service)$/", "/^.+(Stage)$/"]
         extensions: ["feature", "features"]
+        maximumIfAllowed: 3
     stubFiles:
         - stubs/BehaviourAnnotation.phpstub
 
 rules:
 	- yohanlaborda\PHPStan\Rule\BehaviourAnnotationRule
+	- yohanlaborda\PHPStan\Rule\ManyIfConditionRule
 
 services:
+
+	# Rules
 	-
 		class: yohanlaborda\PHPStan\Rule\BehaviourAnnotationRule
 		tags: [phpstan.rules.behaviourAnnotation]
+
+	-
+		class: yohanlaborda\PHPStan\Rule\ManyIfConditionRule
+		tags: [phpstan.rules.manyIf]
+
+	# Configurations
 	-
 	    factory: yohanlaborda\PHPStan\Configuration\BehaviourConfiguration(%behaviour.expressions%, %behaviour.extensions%)
+	-
+	    factory: yohanlaborda\PHPStan\Configuration\ManyIfConfiguration(%behaviour.maximumIfAllowed%)
