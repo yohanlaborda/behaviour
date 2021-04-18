@@ -2,6 +2,9 @@
 
 namespace yohanlaborda\behaviour\Annotation;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class Behaviour
 {
     private string $file;

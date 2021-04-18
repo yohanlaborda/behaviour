@@ -12,6 +12,7 @@ use yohanlaborda\behaviour\Annotation\Behaviour;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
 use yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExistValidate;
 use yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExtensionsValidate;
+use yohanlaborda\behaviour\Validate\NodeIsPublicValidate;
 use yohanlaborda\behaviour\Validator\ValidateList;
 use yohanlaborda\behaviour\Validator\Validator;
 
@@ -50,6 +51,7 @@ final class ValidatorTest extends TestCase
         $validateList = new ValidateList([
             new AnnotationFileExistValidate($this->collection),
             new AnnotationFileExtensionsValidate($this->collection, ['feature', 'features'])
+
         ]);
         $errors = $this->validator->execute($validateList);
 
@@ -60,6 +62,7 @@ final class ValidatorTest extends TestCase
     {
         $this->collection->add(new Behaviour('service.features'));
         $validateList = new ValidateList([
+            new NodeIsPublicValidate(),
             new AnnotationFileExtensionsValidate($this->collection, ['feature', 'features'])
         ]);
         $errors = $this->validator->execute($validateList);

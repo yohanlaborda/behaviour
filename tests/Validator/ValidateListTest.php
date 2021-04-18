@@ -7,7 +7,7 @@ use yohanlaborda\behaviour\Validator\ValidateInterface;
 use yohanlaborda\behaviour\Validator\ValidateList;
 
 /**
- * @covers \yohanlaborda\behaviour\Validate\ValidateList
+ * @covers \yohanlaborda\behaviour\Validator\ValidateList
  */
 final class ValidateListTest extends TestCase
 {

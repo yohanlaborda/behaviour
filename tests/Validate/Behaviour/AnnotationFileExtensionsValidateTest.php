@@ -12,7 +12,7 @@ use yohanlaborda\behaviour\Error\FileWithWrongExtensionError;
 use yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExtensionsValidate;
 
 /**
- * @covers \yohanlaborda\behaviour\Validate\AnnotationFileExtensionsValidate
+ * @covers \yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExtensionsValidate
  */
 final class AnnotationFileExtensionsValidateTest extends TestCase
 {
@@ -43,6 +43,14 @@ final class AnnotationFileExtensionsValidateTest extends TestCase
 
     public function testIsValidReturnFalseWithoutAnnotation(): void
     {
+        $isValid = $this->annotationFileExtensionsValidate->isValid($this->node, $this->scope);
+
+        self::assertFalse($isValid);
+    }
+
+    public function testIsValidReturnFalseWithWrongAnnotation(): void
+    {
+        $this->collection->add(new Behaviour('service.coco'));
         $isValid = $this->annotationFileExtensionsValidate->isValid($this->node, $this->scope);
 
         self::assertFalse($isValid);

@@ -2,6 +2,9 @@
 
 namespace yohanlaborda\PHPStan\Configuration;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class BehaviourConfiguration
 {
     /**

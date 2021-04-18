@@ -76,11 +76,7 @@ final class BehaviourAnnotationRule implements Rule
             return $collectionEmpty;
         }
 
-        try {
-            $behaviour = (new AnnotationReader())->getFromClassNameAndMethodName($className, $methodName);
-        } catch (Exception $exception) {
-            return $collectionEmpty;
-        }
+        $behaviour = (new AnnotationReader())->getFromClassNameAndMethodName($className, $methodName);
 
         return $behaviour ?? $collectionEmpty;
     }
