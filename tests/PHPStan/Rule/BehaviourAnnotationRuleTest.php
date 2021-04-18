@@ -11,10 +11,10 @@ use PHPStan\Rules\RuleError;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use yohanlaborda\behaviour\Tests\debug\Service;
-use yohanlaborda\behaviour\Tests\debug\Stage;
-use yohanlaborda\behaviour\Tests\debug\WithoutAnnotationService;
-use yohanlaborda\behaviour\Tests\debug\WithoutMethodService;
+use yohanlaborda\behaviour\Tests\debug\Behaviour\Service;
+use yohanlaborda\behaviour\Tests\debug\Behaviour\Stage;
+use yohanlaborda\behaviour\Tests\debug\Behaviour\WithoutAnnotationService;
+use yohanlaborda\behaviour\Tests\debug\Behaviour\WithoutMethodService;
 use yohanlaborda\PHPStan\Configuration\BehaviourConfiguration;
 use yohanlaborda\PHPStan\Rule\BehaviourAnnotationRule;
 
@@ -75,7 +75,7 @@ final class BehaviourAnnotationRuleTest extends TestCase
         $fileNotExistError = current($errors);
 
         self::assertSame(
-            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\WithoutAnnotationService" class does not have the annotation @Behaviour',
+            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Behaviour\WithoutAnnotationService" class does not have the annotation @Behaviour',
             $fileNotExistError instanceof RuleError ? $fileNotExistError->getMessage() : $fileNotExistError
         );
     }

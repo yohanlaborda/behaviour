@@ -1,6 +1,6 @@
 <?php
 
-namespace yohanlaborda\behaviour\Tests\Validate;
+namespace yohanlaborda\behaviour\Tests\Validate\Behaviour;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Annotation\Behaviour;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
 use yohanlaborda\behaviour\Error\FileWithWrongExtension;
-use yohanlaborda\behaviour\Validate\AnnotationFileExtensionsValidate;
+use yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExtensionsValidate;
 
 /**
  * @covers \yohanlaborda\behaviour\Validate\AnnotationFileExtensionsValidate

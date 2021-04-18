@@ -1,6 +1,6 @@
 <?php
 
-namespace yohanlaborda\behaviour\Tests\Validate;
+namespace yohanlaborda\behaviour\Tests\Validate\Behaviour;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
@@ -9,10 +9,10 @@ use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Annotation\Behaviour;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
 use yohanlaborda\behaviour\Error\FileNotExistError;
-use yohanlaborda\behaviour\Validate\AnnotationFileExistValidate;
+use yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExistValidate;
 
 /**
- * @covers \yohanlaborda\behaviour\Validate\AnnotationFileExistValidate
+ * @covers \yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExistValidate
  */
 final class AnnotationFileExistValidateTest extends TestCase
 {
@@ -55,7 +55,7 @@ final class AnnotationFileExistValidateTest extends TestCase
 
     public function testIsValidWithFile(): void
     {
-        $this->collection->add(new Behaviour(__DIR__ . '/../debug/service.feature'));
+        $this->collection->add(new Behaviour(__DIR__ . '/../../debug/Behaviour/service.feature'));
         $isValid = $this->annotationFileExistValidate->isValid($this->node, $this->scope);
 
         self::assertTrue($isValid);

@@ -10,8 +10,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Annotation\Behaviour;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
-use yohanlaborda\behaviour\Validate\AnnotationFileExistValidate;
-use yohanlaborda\behaviour\Validate\AnnotationFileExtensionsValidate;
+use yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExistValidate;
+use yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExtensionsValidate;
 use yohanlaborda\behaviour\Validator\ValidateList;
 use yohanlaborda\behaviour\Validator\Validator;
 

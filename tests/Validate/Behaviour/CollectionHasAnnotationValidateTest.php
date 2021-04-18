@@ -1,6 +1,6 @@
 <?php
 
-namespace yohanlaborda\behaviour\Tests\Validate;
+namespace yohanlaborda\behaviour\Tests\Validate\Behaviour;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
@@ -9,10 +9,10 @@ use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Annotation\Behaviour;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
 use yohanlaborda\behaviour\Error\WithoutAnnotationError;
-use yohanlaborda\behaviour\Validate\CollectionHasAnnotationValidate;
+use yohanlaborda\behaviour\Validate\Behaviour\CollectionHasAnnotationValidate;
 
 /**
- * @covers \yohanlaborda\behaviour\Validate\CollectionHasAnnotationValidate
+ * @covers \yohanlaborda\behaviour\Validate\Behaviour\CollectionHasAnnotationValidate
  */
 final class CollectionHasAnnotationValidateTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace yohanlaborda\behaviour\Validate;
+namespace yohanlaborda\behaviour\Validate\Behaviour;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
