@@ -9,6 +9,8 @@ use yohanlaborda\behaviour\Collection\BehaviourCollection;
 
 final class FileWithWrongExtension implements ErrorInterface
 {
+    private BehaviourCollection $collection;
+
     /**
      * @var string[]
      */
@@ -17,18 +19,19 @@ final class FileWithWrongExtension implements ErrorInterface
     /**
      * @param string[] $extensions
      */
-    public function __construct(array $extensions)
+    public function __construct(BehaviourCollection $collection, array $extensions)
     {
+        $this->collection = $collection;
         $this->extensions = $extensions;
     }
 
     /**
      * @inheritDoc
      */
-    public function create(Node $node, Scope $scope, BehaviourCollection $collection): array
+    public function create(Node $node, Scope $scope): array
     {
         $errors = [];
-        $annotations = $collection->getAnnotations();
+        $annotations = $this->collection->getAnnotations();
         foreach ($annotations as $annotation) {
             $errors[] = RuleErrorBuilder::message(
                 sprintf(

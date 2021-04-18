@@ -36,7 +36,7 @@ final class FileWithWrongExtensionTest extends TestCase
     protected function setUp(): void
     {
         $this->collection = new BehaviourCollection();
-        $this->fileWithWrongExtension = new FileWithWrongExtension(['feature', 'features']);
+        $this->fileWithWrongExtension = new FileWithWrongExtension($this->collection, ['feature', 'features']);
         $this->node = $this->createMock(ClassMethod::class);
         $this->scope = $this->createMock(Scope::class);
     }
@@ -44,7 +44,7 @@ final class FileWithWrongExtensionTest extends TestCase
     public function testCreateWithAnnotation(): void
     {
         $this->collection->add(new Behaviour('error.php'));
-        $errors = $this->fileWithWrongExtension->create($this->node, $this->scope, $this->collection);
+        $errors = $this->fileWithWrongExtension->create($this->node, $this->scope);
         $firstError = $errors[0];
 
         self::assertSame(

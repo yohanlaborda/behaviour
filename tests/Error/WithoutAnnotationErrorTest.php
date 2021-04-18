@@ -8,7 +8,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use yohanlaborda\behaviour\Collection\BehaviourCollection;
 use yohanlaborda\behaviour\Error\WithoutAnnotationError;
 
 /**
@@ -26,7 +25,7 @@ final class WithoutAnnotationErrorTest extends TestCase
         $classReflection->method('getName')->willReturn(ReflectionClass::class);
         $scope->method('getClassReflection')->willReturn($classReflection);
 
-        $errors = (new WithoutAnnotationError())->create($node, $scope, new BehaviourCollection());
+        $errors = (new WithoutAnnotationError())->create($node, $scope);
         $firstError = $errors[0];
 
         self::assertSame(

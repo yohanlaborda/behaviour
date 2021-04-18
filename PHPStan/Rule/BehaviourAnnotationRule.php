@@ -61,7 +61,7 @@ final class BehaviourAnnotationRule implements Rule
             new AnnotationFileExtensionsValidate($behaviourCollection, $this->configuration->getExtensions())
         ]);
 
-        $validator = new Validator($node, $scope, $behaviourCollection);
+        $validator = new Validator($node, $scope);
 
         return $validator->execute($validateList);
     }

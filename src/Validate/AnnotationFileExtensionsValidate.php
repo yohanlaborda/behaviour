@@ -76,6 +76,6 @@ final class AnnotationFileExtensionsValidate implements ValidateInterface, Error
 
     public function getError(): ErrorInterface
     {
-        return new FileWithWrongExtension($this->extensions);
+        return new FileWithWrongExtension($this->collection, $this->extensions);
     }
 }

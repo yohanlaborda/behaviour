@@ -5,24 +5,21 @@ namespace yohanlaborda\behaviour\Validator;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleError;
-use yohanlaborda\behaviour\Collection\BehaviourCollection;
 
 final class Validator
 {
     private Node $node;
     private Scope $scope;
-    private BehaviourCollection $collection;
 
     /**
      * @var RuleError[]
      */
     private array $errors = [];
 
-    public function __construct(Node $node, Scope $scope, BehaviourCollection $collection)
+    public function __construct(Node $node, Scope $scope)
     {
         $this->node = $node;
         $this->scope = $scope;
-        $this->collection = $collection;
     }
 
     /**
@@ -66,7 +63,7 @@ final class Validator
         }
 
         $error = $validate->getError();
-        $errors = $error->create($this->node, $this->scope, $this->collection);
+        $errors = $error->create($this->node, $this->scope);
         $this->errors = array_merge($this->errors, $errors);
     }
 }

@@ -9,13 +9,20 @@ use yohanlaborda\behaviour\Collection\BehaviourCollection;
 
 final class FileNotExistError implements ErrorInterface
 {
+    private BehaviourCollection $collection;
+
+    public function __construct(BehaviourCollection $collection)
+    {
+        $this->collection = $collection;
+    }
+
     /**
      * @inheritDoc
      */
-    public function create(Node $node, Scope $scope, BehaviourCollection $collection): array
+    public function create(Node $node, Scope $scope): array
     {
         $errors = [];
-        $annotations = $collection->getAnnotations();
+        $annotations = $this->collection->getAnnotations();
         foreach ($annotations as $annotation) {
             $errors[] = RuleErrorBuilder::message(
                 sprintf('The file "%s" not exist.', $annotation->getFile())

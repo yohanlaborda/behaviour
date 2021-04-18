@@ -10,10 +10,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Annotation\Behaviour;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
-use yohanlaborda\behaviour\Tests\debug\WithoutMethodService;
 use yohanlaborda\behaviour\Validate\AnnotationFileExistValidate;
 use yohanlaborda\behaviour\Validate\AnnotationFileExtensionsValidate;
-use yohanlaborda\behaviour\Validate\ExpressionApplyValidate;
 use yohanlaborda\behaviour\Validator\ValidateList;
 use yohanlaborda\behaviour\Validator\Validator;
 
@@ -43,7 +41,7 @@ final class ValidatorTest extends TestCase
         $this->node->name = $this->createMock(Identifier::class);
         $this->node->name->name = 'execute';
         $this->scope = $this->createMock(Scope::class);
-        $this->validator = new Validator($this->node, $this->scope, $this->collection);
+        $this->validator = new Validator($this->node, $this->scope);
     }
 
     public function testExecuteWithTwoError(): void

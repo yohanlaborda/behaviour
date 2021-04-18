@@ -64,6 +64,6 @@ final class AnnotationFileExistValidate implements ValidateInterface, ErrorValid
 
     public function getError(): ErrorInterface
     {
-        return new FileNotExistError();
+        return new FileNotExistError($this->collection);
     }
 }

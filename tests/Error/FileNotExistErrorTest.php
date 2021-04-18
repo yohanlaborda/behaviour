@@ -35,7 +35,7 @@ final class FileNotExistErrorTest extends TestCase
     protected function setUp(): void
     {
         $this->collection = new BehaviourCollection();
-        $this->fileNotExistError = new FileNotExistError();
+        $this->fileNotExistError = new FileNotExistError($this->collection);
         $this->node = $this->createMock(Node::class);
         $this->scope = $this->createMock(Scope::class);
     }
@@ -44,7 +44,7 @@ final class FileNotExistErrorTest extends TestCase
     {
         $this->collection->add(new Behaviour('error.feature'));
 
-        $errors = $this->fileNotExistError->create($this->node, $this->scope, $this->collection);
+        $errors = $this->fileNotExistError->create($this->node, $this->scope);
         $firstError = $errors[0];
 
         self::assertSame(
