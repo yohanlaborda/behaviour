@@ -9,14 +9,14 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Annotation\Behaviour;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
-use yohanlaborda\behaviour\Error\FileWithWrongExtension;
+use yohanlaborda\behaviour\Error\FileWithWrongExtensionError;
 
 /**
- * @covers \yohanlaborda\behaviour\Error\FileWithWrongExtension
+ * @covers \yohanlaborda\behaviour\Error\FileWithWrongExtensionError
  */
-final class FileWithWrongExtensionTest extends TestCase
+final class FileWithWrongExtensionErrorTest extends TestCase
 {
-    private FileWithWrongExtension $fileWithWrongExtension;
+    private FileWithWrongExtensionError $fileWithWrongExtension;
 
     /**
      * @var Node&MockObject
@@ -36,7 +36,7 @@ final class FileWithWrongExtensionTest extends TestCase
     protected function setUp(): void
     {
         $this->collection = new BehaviourCollection();
-        $this->fileWithWrongExtension = new FileWithWrongExtension($this->collection, ['feature', 'features']);
+        $this->fileWithWrongExtension = new FileWithWrongExtensionError($this->collection, ['feature', 'features']);
         $this->node = $this->createMock(ClassMethod::class);
         $this->scope = $this->createMock(Scope::class);
     }

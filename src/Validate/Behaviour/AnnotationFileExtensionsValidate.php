@@ -6,7 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
 use yohanlaborda\behaviour\Error\ErrorInterface;
-use yohanlaborda\behaviour\Error\FileWithWrongExtension;
+use yohanlaborda\behaviour\Error\FileWithWrongExtensionError;
 use yohanlaborda\behaviour\Validator\ErrorValidateInterface;
 use yohanlaborda\behaviour\Validator\ValidateInterface;
 
@@ -76,6 +76,6 @@ final class AnnotationFileExtensionsValidate implements ValidateInterface, Error
 
     public function getError(): ErrorInterface
     {
-        return new FileWithWrongExtension($this->collection, $this->extensions);
+        return new FileWithWrongExtensionError($this->collection, $this->extensions);
     }
 }

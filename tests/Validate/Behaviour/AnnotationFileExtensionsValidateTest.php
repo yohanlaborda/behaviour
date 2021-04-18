@@ -8,7 +8,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Annotation\Behaviour;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
-use yohanlaborda\behaviour\Error\FileWithWrongExtension;
+use yohanlaborda\behaviour\Error\FileWithWrongExtensionError;
 use yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExtensionsValidate;
 
 /**
@@ -63,6 +63,6 @@ final class AnnotationFileExtensionsValidateTest extends TestCase
 
     public function testGetErrorWithClass(): void
     {
-        self::assertInstanceOf(FileWithWrongExtension::class, $this->annotationFileExtensionsValidate->getError());
+        self::assertInstanceOf(FileWithWrongExtensionError::class, $this->annotationFileExtensionsValidate->getError());
     }
 }

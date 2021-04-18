@@ -7,7 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleErrorBuilder;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
 
-final class FileWithWrongExtension implements ErrorInterface
+final class FileWithWrongExtensionError implements ErrorInterface
 {
     private BehaviourCollection $collection;
 
