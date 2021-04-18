@@ -1,6 +1,6 @@
 <?php
 
-namespace yohanlaborda\behaviour\Tests\debug\ManyIf;
+namespace yohanlaborda\behaviour\Tests\debug\Condition;
 
 class ManyIf
 {

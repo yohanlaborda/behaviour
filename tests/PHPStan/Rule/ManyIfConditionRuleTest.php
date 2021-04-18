@@ -11,7 +11,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\RuleError;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use yohanlaborda\behaviour\Tests\debug\ManyIf\ManyIf;
+use yohanlaborda\behaviour\Tests\debug\Condition\ManyIf;
 use yohanlaborda\PHPStan\Configuration\ManyIfConfiguration;
 use yohanlaborda\PHPStan\Rule\ManyIfConditionRule;
 
@@ -71,7 +71,7 @@ final class ManyIfConditionRuleTest extends TestCase
         $fileNotExistError = current($errors);
 
         self::assertSame(
-            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\ManyIf\ManyIf" class has more than "3" if conditions',
+            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Condition\ManyIf" class has more than "3" if conditions',
             $fileNotExistError instanceof RuleError ? $fileNotExistError->getMessage() : $fileNotExistError
         );
     }
