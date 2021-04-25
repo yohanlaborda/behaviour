@@ -4,11 +4,13 @@ namespace yohanlaborda\behaviour\Tests\Validate\Behaviour;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Annotation\Behaviour;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
 use yohanlaborda\behaviour\Error\FileNotExistError;
+use yohanlaborda\behaviour\Tests\debug\Behaviour\Service;
 use yohanlaborda\behaviour\Validate\Behaviour\AnnotationFileExistValidate;
 
 /**
@@ -40,6 +42,27 @@ final class AnnotationFileExistValidateTest extends TestCase
 
     public function testIsValidReturnFalseWithoutAnnotation(): void
     {
+        $isValid = $this->annotationFileExistValidate->isValid($this->node, $this->scope);
+
+        self::assertFalse($isValid);
+    }
+
+    public function testIsValidReturnFalseWithReflection(): void
+    {
+        $classReflection = $this->createMock(ClassReflection::class);
+        $classReflection->method('getName')->willReturn(Service::class);
+        $this->scope->method('getClassReflection')->willReturn($classReflection);
+        $this->collection->add(new Behaviour('file.txt'));
+        $isValid = $this->annotationFileExistValidate->isValid($this->node, $this->scope);
+
+        self::assertFalse($isValid);
+    }
+
+    public function testIsValidReturnFalseWithWrongReflection(): void
+    {
+        $classReflection = $this->createMock(ClassReflection::class);
+        $this->scope->method('getClassReflection')->willReturn($classReflection);
+        $this->collection->add(new Behaviour('file.txt'));
         $isValid = $this->annotationFileExistValidate->isValid($this->node, $this->scope);
 
         self::assertFalse($isValid);

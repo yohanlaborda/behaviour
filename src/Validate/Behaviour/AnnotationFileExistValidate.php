@@ -2,8 +2,10 @@
 
 namespace yohanlaborda\behaviour\Validate\Behaviour;
 
+use Exception;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use ReflectionClass;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
 use yohanlaborda\behaviour\Error\ErrorInterface;
 use yohanlaborda\behaviour\Error\FileNotExistError;
@@ -46,10 +48,27 @@ final class AnnotationFileExistValidate implements ValidateInterface, ErrorValid
             return true;
         }
 
-        $directoryClass = dirname($scope->getFile());
-        $filePathFromClass = $directoryClass . DIRECTORY_SEPARATOR . $filePath;
+        $directoryName = $this->getDirectoryName($scope) ?? dirname($scope->getFile());
+        $filePathFromClass = $directoryName . DIRECTORY_SEPARATOR . $filePath;
 
         return $this->isRealPath($filePathFromClass);
+    }
+
+    private function getDirectoryName(Scope $scope): ?string
+    {
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection) {
+            return null;
+        }
+
+        try {
+            $reflectionClass = new ReflectionClass($classReflection->getName());
+            $fileName = $reflectionClass->getFileName();
+        } catch (Exception $exception) {
+            return null;
+        }
+
+        return $fileName ? dirname($fileName) : null;
     }
 
     private function isRealPath(string $filePath): bool
