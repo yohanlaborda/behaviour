@@ -2,7 +2,6 @@
 
 namespace yohanlaborda\PHPStan\Rule;
 
-use Exception;
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike;
 use PHPStan\Analyser\Scope;
