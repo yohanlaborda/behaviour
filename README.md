@@ -31,6 +31,7 @@ parameters:
 +        expressions: ["/^.+(Service)$/", "/^.+(Stage)$/"]
 +        extensions: ["feature", "features"]
 +        maximumIfAllowed: 3
++        maximumLinesInMethod: 20
 ```
 
 ### Expressions
@@ -61,6 +62,16 @@ Number of ifs allowed in a method of a class.
 parameters:
 +    behaviour:
 +        maximumIfAllowed: 3
+```
+
+### Maximum lines in method
+
+Indicates the number of lines allowed in a method of a class.
+
+```diff
+parameters:
++    behaviour:
++        maximumLinesInMethod: 20
 ```
 
 ## Usage Behaviour

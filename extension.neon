@@ -3,6 +3,7 @@ parametersSchema:
         expressions: listOf(string())
         extensions: listOf(string())
         maximumIfAllowed: int()
+        maximumLinesInMethod: int()
     ])
 
 parameters:
@@ -10,12 +11,14 @@ parameters:
         expressions: ["/^.+(Service)$/", "/^.+(Stage)$/"]
         extensions: ["feature", "features"]
         maximumIfAllowed: 3
+        maximumLinesInMethod: 20
     stubFiles:
         - stubs/BehaviourAnnotation.phpstub
 
 rules:
 	- yohanlaborda\PHPStan\Rule\BehaviourAnnotationRule
 	- yohanlaborda\PHPStan\Rule\ManyIfConditionRule
+	- yohanlaborda\PHPStan\Rule\LongMethodRule
 
 services:
 
@@ -28,8 +31,14 @@ services:
 		class: yohanlaborda\PHPStan\Rule\ManyIfConditionRule
 		tags: [phpstan.rules.manyIf]
 
+	-
+		class: yohanlaborda\PHPStan\Rule\LongMethodRule
+		tags: [phpstan.rules.longMethod]
+
 	# Configurations
 	-
 	    factory: yohanlaborda\PHPStan\Configuration\BehaviourConfiguration(%behaviour.expressions%, %behaviour.extensions%)
 	-
 	    factory: yohanlaborda\PHPStan\Configuration\ManyIfConfiguration(%behaviour.maximumIfAllowed%)
+	-
+	    factory: yohanlaborda\PHPStan\Configuration\LongMethodConfiguration(%behaviour.maximumLinesInMethod%)
