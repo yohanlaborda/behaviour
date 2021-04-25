@@ -75,7 +75,7 @@ final class BehaviourAnnotationRuleTest extends TestCase
         $fileNotExistError = current($errors);
 
         self::assertSame(
-            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Behaviour\WithoutAnnotationService" class does not have the annotation @Behaviour',
+            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Behaviour\WithoutAnnotationService" class does not have the annotation @Behaviour.',
             $fileNotExistError instanceof RuleError ? $fileNotExistError->getMessage() : $fileNotExistError
         );
     }

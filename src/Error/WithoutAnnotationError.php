@@ -21,7 +21,7 @@ class WithoutAnnotationError implements ErrorInterface
         return [
             RuleErrorBuilder::message(
                 sprintf(
-                    'The "%s" method of the "%s" class does not have the annotation @Behaviour',
+                    'The "%s" method of the "%s" class does not have the annotation @Behaviour.',
                     $functionName,
                     $className
                 )

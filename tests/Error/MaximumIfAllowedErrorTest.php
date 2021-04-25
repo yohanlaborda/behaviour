@@ -29,7 +29,7 @@ final class MaximumIfAllowedErrorTest extends TestCase
         $firstError = $errors[0];
 
         self::assertSame(
-            'The "execute" method of the "ReflectionClass" class has more than "3" if conditions',
+            'The "execute" method of the "ReflectionClass" class has more than "3" if conditions.',
             $firstError->getMessage()
         );
     }

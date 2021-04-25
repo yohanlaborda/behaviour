@@ -28,7 +28,7 @@ final class MaximumIfAllowedError implements ErrorInterface
         return [
             RuleErrorBuilder::message(
                 sprintf(
-                    'The "%s" method of the "%s" class has more than "%d" if conditions',
+                    'The "%s" method of the "%s" class has more than "%d" if conditions.',
                     $functionName,
                     $className,
                     $this->maximumIfAllowed

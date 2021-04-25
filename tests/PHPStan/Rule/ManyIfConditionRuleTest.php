@@ -71,7 +71,7 @@ final class ManyIfConditionRuleTest extends TestCase
         $fileNotExistError = current($errors);
 
         self::assertSame(
-            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Condition\ManyIf" class has more than "3" if conditions',
+            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Condition\ManyIf" class has more than "3" if conditions.',
             $fileNotExistError instanceof RuleError ? $fileNotExistError->getMessage() : $fileNotExistError
         );
     }
