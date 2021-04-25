@@ -7,6 +7,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use yohanlaborda\behaviour\Error\ErrorInterface;
 use yohanlaborda\behaviour\Error\MaximumLinesInMethodError;
+use yohanlaborda\behaviour\Utility\LineNumberFromNode;
 use yohanlaborda\behaviour\Validator\ErrorValidateInterface;
 use yohanlaborda\behaviour\Validator\ValidateInterface;
 
@@ -14,7 +15,6 @@ final class MaximumLinesInMethodValidate implements ValidateInterface, ErrorVali
 {
     // The line with the name of the method plus the two keys, this may vary, but we will only count these three
     private const EXTRACT_LINES = 3;
-    private const UNDEFINED_LINE_NUMBER = -1;
     private int $maximumLinesInMethod;
 
     public function __construct(int $maximumLinesInMethod)
@@ -28,7 +28,7 @@ final class MaximumLinesInMethodValidate implements ValidateInterface, ErrorVali
             return false;
         }
 
-        if ($this->isUndefinedLineNumber($node)) {
+        if (LineNumberFromNode::isUndefinedLineNumber($node)) {
             return true;
         }
 
@@ -36,19 +36,6 @@ final class MaximumLinesInMethodValidate implements ValidateInterface, ErrorVali
         $totalLines = $differenceBetweenLines - self::EXTRACT_LINES;
 
         return $totalLines <= $this->maximumLinesInMethod;
-    }
-
-    private function isUndefinedLineNumber(Node $node): bool
-    {
-        if ($node->getStartLine() === self::UNDEFINED_LINE_NUMBER) {
-            return true;
-        }
-
-        if ($node->getEndLine() === self::UNDEFINED_LINE_NUMBER) {
-            return true;
-        }
-
-        return false;
     }
 
     public function finishAfterFail(): bool
