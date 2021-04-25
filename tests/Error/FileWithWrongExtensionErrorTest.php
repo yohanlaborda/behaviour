@@ -43,12 +43,14 @@ final class FileWithWrongExtensionErrorTest extends TestCase
 
     public function testCreateWithAnnotation(): void
     {
-        $this->collection->add(new Behaviour('error.php'));
+        $behaviour = new Behaviour('error.feature');
+        $behaviour->markWithError();
+        $this->collection->add($behaviour);
         $errors = $this->fileWithWrongExtension->create($this->node, $this->scope);
         $firstError = $errors[0];
 
         self::assertSame(
-            'The file "error.php" extension is not one of the following: feature, features.',
+            'The file "error.feature" extension is not one of the following: feature, features.',
             $firstError->getMessage()
         );
     }

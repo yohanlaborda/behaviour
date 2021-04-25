@@ -6,6 +6,7 @@ class Stage
 {
     /**
      * @Behaviour("ERROR")
+     * @Behaviour("ERRORS")
      */
     public function execute(): void
     {

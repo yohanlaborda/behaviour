@@ -33,13 +33,15 @@ final class FileWithWrongExtensionError implements ErrorInterface
         $errors = [];
         $annotations = $this->collection->getAnnotations();
         foreach ($annotations as $annotation) {
-            $errors[] = RuleErrorBuilder::message(
-                sprintf(
-                    'The file "%s" extension is not one of the following: %s.',
-                    $annotation->getFile(),
-                    implode(', ', $this->extensions)
-                )
-            )->build();
+            if ($annotation->hasError()) {
+                $errors[] = RuleErrorBuilder::message(
+                    sprintf(
+                        'The file "%s" extension is not one of the following: %s.',
+                        $annotation->getFile(),
+                        implode(', ', $this->extensions)
+                    )
+                )->build();
+            }
         }
 
         return $errors;

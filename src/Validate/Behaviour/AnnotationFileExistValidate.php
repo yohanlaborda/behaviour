@@ -30,6 +30,7 @@ final class AnnotationFileExistValidate implements ValidateInterface, ErrorValid
         $annotations = $this->collection->getAnnotations();
         foreach ($annotations as $annotation) {
             if ($this->fileNotExist($scope, $annotation->getFile())) {
+                $annotation->markWithError();
                 return false;
             }
         }

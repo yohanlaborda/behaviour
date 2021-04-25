@@ -8,6 +8,7 @@ namespace yohanlaborda\behaviour\Annotation;
 final class Behaviour
 {
     private string $file;
+    private bool $error = false;
 
     public function __construct(string $file)
     {
@@ -17,5 +18,15 @@ final class Behaviour
     public function getFile(): string
     {
         return $this->file;
+    }
+
+    public function hasError(): bool
+    {
+        return $this->error;
+    }
+
+    public function markWithError(): void
+    {
+        $this->error = true;
     }
 }

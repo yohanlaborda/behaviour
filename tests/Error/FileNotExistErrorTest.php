@@ -42,7 +42,9 @@ final class FileNotExistErrorTest extends TestCase
 
     public function testCreateWithAnnotation(): void
     {
-        $this->collection->add(new Behaviour('error.feature'));
+        $behaviour = new Behaviour('error.feature');
+        $behaviour->markWithError();
+        $this->collection->add($behaviour);
 
         $errors = $this->fileNotExistError->create($this->node, $this->scope);
         $firstError = $errors[0];

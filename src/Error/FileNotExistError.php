@@ -24,9 +24,11 @@ final class FileNotExistError implements ErrorInterface
         $errors = [];
         $annotations = $this->collection->getAnnotations();
         foreach ($annotations as $annotation) {
-            $errors[] = RuleErrorBuilder::message(
-                sprintf('The file "%s" not exist.', $annotation->getFile())
-            )->build();
+            if ($annotation->hasError()) {
+                $errors[] = RuleErrorBuilder::message(
+                    sprintf('The file "%s" not exist.', $annotation->getFile())
+                )->build();
+            }
         }
 
         return $errors;
