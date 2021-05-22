@@ -3,3 +3,4 @@ vendor
 composer.lock
 .phpunit.cache
 .php_cs.cache
+tests-coverage

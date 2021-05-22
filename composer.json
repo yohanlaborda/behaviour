@@ -31,7 +31,8 @@
     "scripts": {
         "analyse": "phpstan analyse",
         "fix": "php-cs-fixer fix",
-        "tests": "phpunit"
+        "tests": "phpunit",
+        "tests-coverage": "phpunit --coverage-html=tests-coverage"
     },
     "autoload": {
         "psr-4": {
