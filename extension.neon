@@ -4,6 +4,7 @@ parametersSchema:
         extensions: listOf(string())
         maximumIfAllowed: int()
         maximumLinesInMethod: int()
+        maximumLinesInClass: int()
     ])
 
 parameters:
@@ -12,6 +13,7 @@ parameters:
         extensions: ["feature", "features"]
         maximumIfAllowed: 3
         maximumLinesInMethod: 20
+        maximumLinesInClass: 200
     stubFiles:
         - stubs/BehaviourAnnotation.phpstub
 
@@ -19,6 +21,7 @@ rules:
 	- yohanlaborda\PHPStan\Rule\BehaviourAnnotationRule
 	- yohanlaborda\PHPStan\Rule\ManyIfConditionRule
 	- yohanlaborda\PHPStan\Rule\LongMethodRule
+	- yohanlaborda\PHPStan\Rule\LargeClassRule
 
 services:
 
@@ -35,6 +38,10 @@ services:
 		class: yohanlaborda\PHPStan\Rule\LongMethodRule
 		tags: [phpstan.rules.longMethod]
 
+	-
+		class: yohanlaborda\PHPStan\Rule\LargeClassRule
+		tags: [phpstan.rules.largeClass]
+
 	# Configurations
 	-
 	    factory: yohanlaborda\PHPStan\Configuration\BehaviourConfiguration(%behaviour.expressions%, %behaviour.extensions%)
@@ -42,3 +49,5 @@ services:
 	    factory: yohanlaborda\PHPStan\Configuration\ManyIfConfiguration(%behaviour.maximumIfAllowed%)
 	-
 	    factory: yohanlaborda\PHPStan\Configuration\LongMethodConfiguration(%behaviour.maximumLinesInMethod%)
+	-
+	    factory: yohanlaborda\PHPStan\Configuration\LargeClassConfiguration(%behaviour.maximumLinesInClass%)
