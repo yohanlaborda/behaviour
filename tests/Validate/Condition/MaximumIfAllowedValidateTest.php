@@ -64,12 +64,14 @@ final class MaximumIfAllowedValidateTest extends TestCase
 
     public function testIsValidReturnFalseWithIfStmts(): void
     {
+        $firstNodeIf = $this->createMock(If_::class);
+        $secondNodeIf = $this->createMock(If_::class);
+        $thirdNodeIf = $this->createMock(If_::class);
+        $secondNodeIf->stmts = [$thirdNodeIf];
+        $firstNodeIf->stmts = [$secondNodeIf];
+
         $this->node = $this->createMock(ClassMethod::class);
-        $this->node->method('getStmts')->willReturn([
-            $this->createMock(If_::class),
-            $this->createMock(If_::class),
-            $this->createMock(If_::class),
-        ]);
+        $this->node->method('getStmts')->willReturn([$firstNodeIf]);
         $isValid = $this->maximumIfAllowedValidate->isValid($this->node, $this->scope);
 
         self::assertFalse($isValid);

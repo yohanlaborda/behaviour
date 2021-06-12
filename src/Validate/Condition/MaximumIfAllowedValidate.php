@@ -42,9 +42,19 @@ final class MaximumIfAllowedValidate implements ValidateInterface, ErrorValidate
     {
         $count = 0;
         foreach ($stmts as $stmt) {
-            if ($stmt instanceof If_) {
-                $count++;
-            }
+            $count += $this->countFromStmt($stmt);
+        }
+
+        return $count;
+    }
+
+    private function countFromStmt(Stmt $stmt): int
+    {
+        $count = $stmt instanceof If_ ? 1 : 0;
+
+        $stmts = property_exists($stmt, 'stmts') ? $stmt->stmts : null;
+        if ($stmts !== null && count($stmts) > 0) {
+            $count += $this->countIf($stmts);
         }
 
         return $count;

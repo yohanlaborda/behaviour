@@ -58,14 +58,17 @@ final class ManyIfConditionRuleTest extends TestCase
     {
         $classReflection = $this->createMock(ClassReflection::class);
         $classReflection->method('getName')->willReturn(ManyIf::class);
+
+        $firstNodeIf = $this->createMock(If_::class);
+        $secondNodeIf = $this->createMock(If_::class);
+        $thirdNodeIf = $this->createMock(If_::class);
+        $fourthNodeIf = $this->createMock(If_::class);
+        $secondNodeIf->stmts = [$thirdNodeIf, $fourthNodeIf];
+        $firstNodeIf->stmts = [$secondNodeIf];
+
         $this->scope->method('getClassReflection')->willReturn($classReflection);
         $this->scope->method('isInClass')->willReturn(true);
-        $this->node->method('getStmts')->willReturn([
-            $this->createMock(If_::class),
-            $this->createMock(If_::class),
-            $this->createMock(If_::class),
-            $this->createMock(If_::class)
-        ]);
+        $this->node->method('getStmts')->willReturn([$firstNodeIf]);
 
         $errors = $this->manyIfConditionRule->processNode($this->node, $this->scope);
         $fileNotExistError = current($errors);
