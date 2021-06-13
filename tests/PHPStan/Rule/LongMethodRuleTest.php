@@ -36,16 +36,26 @@ final class LongMethodRuleTest extends TestCase
     {
         $longMethodConfiguration = new LongMethodConfiguration(3);
         $this->longMethodRule = new LongMethodRule($longMethodConfiguration);
-        $this->node = $this->createMock(ClassMethod::class);
-        $this->node->name = $this->createMock(Identifier::class);
-        $this->node->name->name = 'execute';
-        $this->node->method('isPublic')->willReturn(true);
-        $this->node->method('isMagic')->willReturn(false);
+        $this->node = $this->getMockNode();
         $this->scope = $this->createMock(Scope::class);
         $this->scope->method('isInClass')->willReturn(true);
         $classReflection = $this->createMock(ClassReflection::class);
         $classReflection->method('getName')->willReturn(LongMethod::class);
         $this->scope->method('getClassReflection')->willReturn($classReflection);
+    }
+
+    /**
+     * @return ClassMethod&MockObject
+     */
+    private function getMockNode(): MockObject
+    {
+        $node = $this->createMock(ClassMethod::class);
+        $node->name = $this->createMock(Identifier::class);
+        $node->name->name = 'execute';
+        $node->method('isPublic')->willReturn(true);
+        $node->method('isMagic')->willReturn(false);
+
+        return $node;
     }
 
     public function testNodeTypeIsFunctionLike(): void

@@ -59,16 +59,9 @@ final class ManyIfConditionRuleTest extends TestCase
         $classReflection = $this->createMock(ClassReflection::class);
         $classReflection->method('getName')->willReturn(ManyIf::class);
 
-        $firstNodeIf = $this->createMock(If_::class);
-        $secondNodeIf = $this->createMock(If_::class);
-        $thirdNodeIf = $this->createMock(If_::class);
-        $fourthNodeIf = $this->createMock(If_::class);
-        $secondNodeIf->stmts = [$thirdNodeIf, $fourthNodeIf];
-        $firstNodeIf->stmts = [$secondNodeIf];
-
         $this->scope->method('getClassReflection')->willReturn($classReflection);
         $this->scope->method('isInClass')->willReturn(true);
-        $this->node->method('getStmts')->willReturn([$firstNodeIf]);
+        $this->node->method('getStmts')->willReturn([$this->getMockIf()]);
 
         $errors = $this->manyIfConditionRule->processNode($this->node, $this->scope);
         $fileNotExistError = current($errors);
@@ -77,5 +70,20 @@ final class ManyIfConditionRuleTest extends TestCase
             'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Condition\ManyIf" class has more than "3" if conditions.',
             $fileNotExistError instanceof RuleError ? $fileNotExistError->getMessage() : $fileNotExistError
         );
+    }
+
+    /**
+     * @return If_&MockObject
+     */
+    private function getMockIf(): MockObject
+    {
+        $firstNodeIf = $this->createMock(If_::class);
+        $secondNodeIf = $this->createMock(If_::class);
+        $thirdNodeIf = $this->createMock(If_::class);
+        $fourthNodeIf = $this->createMock(If_::class);
+        $secondNodeIf->stmts = [$thirdNodeIf, $fourthNodeIf];
+        $firstNodeIf->stmts = [$secondNodeIf];
+
+        return $firstNodeIf;
     }
 }

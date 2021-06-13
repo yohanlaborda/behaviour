@@ -40,18 +40,25 @@ final class Validator
             return;
         }
 
-        $validate = $validateList->current();
-        $isValid = $validate->isValid($this->node, $this->scope);
-        $isNotValid = false === $isValid;
+        $this->validateCurrent($validateList);
+    }
 
-        if ($isNotValid) {
-            $this->addErrors($validate);
-        }
-
-        if ($isNotValid && $validate->finishAfterFail()) {
+    private function validateCurrent(ValidateList $validateList): void
+    {
+        $current = $validateList->current();
+        if ($current->isValid($this->node, $this->scope)) {
+            $this->validateNext($validateList);
             return;
         }
 
+        $this->addErrors($current);
+        if (false === $current->finishAfterFail()) {
+            $this->validateNext($validateList);
+        }
+    }
+
+    private function validateNext(ValidateList $validateList): void
+    {
         $validateList->next();
         $this->validate($validateList);
     }

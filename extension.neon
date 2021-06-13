@@ -12,7 +12,7 @@ parameters:
         expressions: ["/^.+(Service)$/", "/^.+(Stage)$/"]
         extensions: ["feature", "features"]
         maximumIfAllowed: 3
-        maximumLinesInMethod: 20
+        maximumLinesInMethod: 10
         maximumLinesInClass: 200
     stubFiles:
         - stubs/BehaviourAnnotation.phpstub

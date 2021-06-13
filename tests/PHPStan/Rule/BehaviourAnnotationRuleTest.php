@@ -42,12 +42,22 @@ final class BehaviourAnnotationRuleTest extends TestCase
             ['feature', 'features']
         );
         $this->behaviourAnnotationRule = new BehaviourAnnotationRule($behaviourConfiguration);
-        $this->node = $this->createMock(ClassMethod::class);
-        $this->node->name = $this->createMock(Identifier::class);
-        $this->node->name->name = 'execute';
-        $this->node->method('isPublic')->willReturn(true);
-        $this->node->method('isMagic')->willReturn(false);
+        $this->node = $this->getMockNode();
         $this->scope = $this->createMock(Scope::class);
+    }
+
+    /**
+     * @return FunctionLike&MockObject
+     */
+    private function getMockNode(): MockObject
+    {
+        $node = $this->createMock(ClassMethod::class);
+        $node->name = $this->createMock(Identifier::class);
+        $node->name->name = 'execute';
+        $node->method('isPublic')->willReturn(true);
+        $node->method('isMagic')->willReturn(false);
+
+        return $node;
     }
 
     public function testNodeTypeIsFunctionLike(): void
@@ -96,12 +106,11 @@ final class BehaviourAnnotationRuleTest extends TestCase
 
     public function testClassWithErrorFileNotExist(): void
     {
-        $reflectionClass = new ReflectionClass(Stage::class);
-        $classReflection = $this->createMock(ClassReflection::class);
-        $classReflection->method('getName')->willReturn(Stage::class);
-        $this->scope->method('getClassReflection')->willReturn($classReflection);
+        $this->scope->method('getClassReflection')->willReturn($this->getMockClassReflection());
         $this->scope->method('isInClass')->willReturn(true);
-        $this->scope->method('getFile')->willReturn($reflectionClass->getFileName());
+        $this->scope->method('getFile')->willReturn(
+            (new ReflectionClass(Stage::class))->getFileName()
+        );
 
         $errors = $this->behaviourAnnotationRule->processNode($this->node, $this->scope);
         $fileNotExistError = current($errors);
@@ -116,6 +125,17 @@ final class BehaviourAnnotationRuleTest extends TestCase
             'The file "ERROR" extension is not one of the following: feature, features.',
             $fileWithWrongExtensionError->getMessage()
         );
+    }
+
+    /**
+     * @return ClassReflection&MockObject
+     */
+    private function getMockClassReflection(): MockObject
+    {
+        $classReflection = $this->createMock(ClassReflection::class);
+        $classReflection->method('getName')->willReturn(Stage::class);
+
+        return $classReflection;
     }
 
     public function testClassWithBehaviourAnnotation(): void
