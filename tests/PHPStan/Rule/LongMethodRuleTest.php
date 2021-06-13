@@ -4,6 +4,7 @@ namespace yohanlaborda\behaviour\Tests\PHPStan\Rule;
 
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
@@ -22,7 +23,7 @@ final class LongMethodRuleTest extends TestCase
     private LongMethodRule $longMethodRule;
 
     /**
-     * @var FunctionLike&MockObject
+     * @var ClassMethod&MockObject
      */
     private $node;
 
@@ -33,7 +34,7 @@ final class LongMethodRuleTest extends TestCase
 
     protected function setUp(): void
     {
-        $longMethodConfiguration = new LongMethodConfiguration(10);
+        $longMethodConfiguration = new LongMethodConfiguration(3);
         $this->longMethodRule = new LongMethodRule($longMethodConfiguration);
         $this->node = $this->createMock(ClassMethod::class);
         $this->node->name = $this->createMock(Identifier::class);
@@ -54,22 +55,25 @@ final class LongMethodRuleTest extends TestCase
 
     public function testClassWithLongMethod(): void
     {
-        $this->node->method('getStartLine')->willReturn(15);
-        $this->node->method('getEndLine')->willReturn(55);
+        $this->node->stmts = [
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class)
+        ];
 
         $errors = $this->longMethodRule->processNode($this->node, $this->scope);
         $maximumLinesInMethodError = current($errors);
 
         self::assertSame(
-            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Method\LongMethod" class has more than "10" lines.',
+            'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Method\LongMethod" class has more than "3" lines.',
             $maximumLinesInMethodError instanceof RuleError ? $maximumLinesInMethodError->getMessage() : $maximumLinesInMethodError
         );
     }
 
     public function testClassWithoutLongMethod(): void
     {
-        $this->node->method('getStartLine')->willReturn(15);
-        $this->node->method('getEndLine')->willReturn(25);
+        $this->node->stmts = [];
 
         $errors = $this->longMethodRule->processNode($this->node, $this->scope);
 

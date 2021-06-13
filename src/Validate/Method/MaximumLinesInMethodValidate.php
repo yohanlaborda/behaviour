@@ -7,14 +7,12 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use yohanlaborda\behaviour\Error\ErrorInterface;
 use yohanlaborda\behaviour\Error\MaximumLinesInMethodError;
-use yohanlaborda\behaviour\Utility\LineNumberFromNode;
+use yohanlaborda\behaviour\Utility\CountStmts;
 use yohanlaborda\behaviour\Validator\ErrorValidateInterface;
 use yohanlaborda\behaviour\Validator\ValidateInterface;
 
 final class MaximumLinesInMethodValidate implements ValidateInterface, ErrorValidateInterface
 {
-    // The line with the name of the method plus the two keys, this may vary, but we will only count these three
-    private const EXTRACT_LINES = 3;
     private int $maximumLinesInMethod;
 
     public function __construct(int $maximumLinesInMethod)
@@ -28,14 +26,13 @@ final class MaximumLinesInMethodValidate implements ValidateInterface, ErrorVali
             return false;
         }
 
-        if (LineNumberFromNode::isUndefinedLineNumber($node)) {
+        if (null === $node->stmts) {
             return true;
         }
 
-        $differenceBetweenLines = $node->getEndLine() - $node->getStartLine();
-        $totalLines = $differenceBetweenLines - self::EXTRACT_LINES;
+        $count = (new CountStmts($node->stmts))->count();
 
-        return $totalLines <= $this->maximumLinesInMethod;
+        return $count <= $this->maximumLinesInMethod;
     }
 
     public function finishAfterFail(): bool

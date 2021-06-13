@@ -3,6 +3,7 @@
 namespace yohanlaborda\behaviour\Tests\Validate\Method;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -29,7 +30,7 @@ final class MaximumLinesInMethodValidateTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->maximumLinesInMethodValidate = new MaximumLinesInMethodValidate(15);
+        $this->maximumLinesInMethodValidate = new MaximumLinesInMethodValidate(3);
         $this->node = $this->createMock(Node::class);
         $this->scope = $this->createMock(Scope::class);
     }
@@ -41,19 +42,9 @@ final class MaximumLinesInMethodValidateTest extends TestCase
         self::assertFalse($isValid);
     }
 
-    public function testIsValidReturnTrueWithUndefinedStartLine(): void
+    public function testIsValidReturnTrueWithoutStmts(): void
     {
         $this->node = $this->createMock(ClassMethod::class);
-        $this->node->method('getStartLine')->willReturn(-1);
-        $isValid = $this->maximumLinesInMethodValidate->isValid($this->node, $this->scope);
-
-        self::assertTrue($isValid);
-    }
-
-    public function testIsValidReturnTrueWithUndefinedEndLine(): void
-    {
-        $this->node = $this->createMock(ClassMethod::class);
-        $this->node->method('getEndLine')->willReturn(-1);
         $isValid = $this->maximumLinesInMethodValidate->isValid($this->node, $this->scope);
 
         self::assertTrue($isValid);
@@ -62,8 +53,7 @@ final class MaximumLinesInMethodValidateTest extends TestCase
     public function testIsValidReturnTrueTotalLineIsLessThanMaximum(): void
     {
         $this->node = $this->createMock(ClassMethod::class);
-        $this->node->method('getStartLine')->willReturn(15);
-        $this->node->method('getEndLine')->willReturn(25);
+        $this->node->stmts = [];
         $isValid = $this->maximumLinesInMethodValidate->isValid($this->node, $this->scope);
 
         self::assertTrue($isValid);
@@ -72,8 +62,12 @@ final class MaximumLinesInMethodValidateTest extends TestCase
     public function testIsValidReturnFalseTotalLineIsGreaterThanMaximum(): void
     {
         $this->node = $this->createMock(ClassMethod::class);
-        $this->node->method('getStartLine')->willReturn(15);
-        $this->node->method('getEndLine')->willReturn(55);
+        $this->node->stmts = [
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class)
+        ];
         $isValid = $this->maximumLinesInMethodValidate->isValid($this->node, $this->scope);
 
         self::assertFalse($isValid);
