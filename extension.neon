@@ -13,7 +13,7 @@ parameters:
         extensions: ["feature", "features"]
         maximumIfAllowed: 3
         maximumLinesInMethod: 10
-        maximumLinesInClass: 200
+        maximumLinesInClass: 100
     stubFiles:
         - stubs/BehaviourAnnotation.phpstub
 
