@@ -3,6 +3,7 @@
 namespace yohanlaborda\behaviour\Tests\Validate;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -29,7 +30,7 @@ final class MaximumLinesInClassValidateTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->maximumLinesInClassValidate = new MaximumLinesInClassValidate(50);
+        $this->maximumLinesInClassValidate = new MaximumLinesInClassValidate(3);
         $this->node = $this->createMock(Node::class);
         $this->scope = $this->createMock(Scope::class);
     }
@@ -41,22 +42,15 @@ final class MaximumLinesInClassValidateTest extends TestCase
         self::assertFalse($isValid);
     }
 
-    public function testIsValidReturnTrueWithUndefinedLineNumber(): void
-    {
-        $this->node = $this->createMock(Class_::class);
-        $this->node->method('getStartLine')->willReturn(-1);
-        $this->node->method('getEndLine')->willReturn(-1);
-
-        $isValid = $this->maximumLinesInClassValidate->isValid($this->node, $this->scope);
-
-        self::assertTrue($isValid);
-    }
-
     public function testIsValidReturnFalseWhenExceedMaximumLines(): void
     {
         $this->node = $this->createMock(Class_::class);
-        $this->node->method('getStartLine')->willReturn(50);
-        $this->node->method('getEndLine')->willReturn(200);
+        $this->node->stmts = [
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class)
+        ];
 
         $isValid = $this->maximumLinesInClassValidate->isValid($this->node, $this->scope);
 
@@ -66,8 +60,11 @@ final class MaximumLinesInClassValidateTest extends TestCase
     public function testIsValidReturnTrueWhenNotExceedMaximumLines(): void
     {
         $this->node = $this->createMock(Class_::class);
-        $this->node->method('getStartLine')->willReturn(50);
-        $this->node->method('getEndLine')->willReturn(60);
+        $this->node->stmts = [
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class)
+        ];
 
         $isValid = $this->maximumLinesInClassValidate->isValid($this->node, $this->scope);
 

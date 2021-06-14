@@ -3,6 +3,7 @@
 namespace yohanlaborda\behaviour\Tests\PHPStan\Rule;
 
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Analyser\Scope;
@@ -33,7 +34,7 @@ final class LargeClassRuleTest extends TestCase
 
     protected function setUp(): void
     {
-        $largeClassConfiguration = new LargeClassConfiguration(50);
+        $largeClassConfiguration = new LargeClassConfiguration(3);
         $reflectionClass = new ReflectionClass(LargeClass::class);
         $this->largeClassRule = new LargeClassRule($largeClassConfiguration);
         $this->node = $this->createMock(Class_::class);
@@ -50,22 +51,29 @@ final class LargeClassRuleTest extends TestCase
 
     public function testLargeClassWithError(): void
     {
-        $this->node->method('getStartLine')->willReturn(50);
-        $this->node->method('getEndLine')->willReturn(250);
+        $this->node->stmts = [
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class)
+        ];
 
         $errors = $this->largeClassRule->processNode($this->node, $this->scope);
         $largeClassError = current($errors);
 
         self::assertSame(
-            'The "yohanlaborda\behaviour\Tests\debug\LargeClass" class has more than "50" lines.',
+            'The "yohanlaborda\behaviour\Tests\debug\LargeClass" class has more than "3" lines.',
             $largeClassError instanceof RuleError ? $largeClassError->getMessage() : $largeClassError
         );
     }
 
     public function testLargeClassWithoutError(): void
     {
-        $this->node->method('getStartLine')->willReturn(50);
-        $this->node->method('getEndLine')->willReturn(80);
+        $this->node->stmts = [
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class),
+            $this->createMock(Stmt::class)
+        ];
 
         $errors = $this->largeClassRule->processNode($this->node, $this->scope);
 

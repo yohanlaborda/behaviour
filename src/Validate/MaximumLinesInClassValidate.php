@@ -7,7 +7,7 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use yohanlaborda\behaviour\Error\ErrorInterface;
 use yohanlaborda\behaviour\Error\MaximumLinesInClassError;
-use yohanlaborda\behaviour\Utility\LineNumberFromNode;
+use yohanlaborda\behaviour\Utility\CountStmts;
 use yohanlaborda\behaviour\Validator\ErrorValidateInterface;
 use yohanlaborda\behaviour\Validator\ValidateInterface;
 
@@ -26,13 +26,13 @@ final class MaximumLinesInClassValidate implements ValidateInterface, ErrorValid
             return false;
         }
 
-        if (LineNumberFromNode::isUndefinedLineNumber($node)) {
+        if (null === $node->stmts) {
             return true;
         }
 
-        $totalLines = $node->getEndLine() - $node->getStartLine();
+        $count = (new CountStmts($node->stmts))->count();
 
-        return $totalLines <= $this->maximumLinesInClass;
+        return $count <= $this->maximumLinesInClass;
     }
 
     public function finishAfterFail(): bool
