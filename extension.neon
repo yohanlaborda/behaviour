@@ -9,8 +9,10 @@ parametersSchema:
 
 parameters:
     behaviour:
-        expressions: ["/^.+(Service)$/", "/^.+(Stage)$/"]
-        extensions: ["feature", "features"]
+        # Example: ["/^.+(Service)$/", "/^.+(Stage)$/"]
+        expressions: []
+        # Example: ["feature", "features"]
+        extensions: []
         maximumIfAllowed: 3
         maximumLinesInMethod: 10
         maximumLinesInClass: 100
