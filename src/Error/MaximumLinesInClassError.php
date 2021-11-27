@@ -4,7 +4,6 @@ namespace yohanlaborda\behaviour\Error;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleErrorBuilder;
 use yohanlaborda\behaviour\Utility\ClassNameFromNode;
 
 final class MaximumLinesInClassError implements ErrorInterface
@@ -25,13 +24,11 @@ final class MaximumLinesInClassError implements ErrorInterface
         $className = $namespace.'\\'.ClassNameFromNode::getName($node);
 
         return [
-            RuleErrorBuilder::message(
-                sprintf(
-                    'The "%s" class has more than "%d" lines.',
-                    $className,
-                    $this->maximumLinesInClass
-                )
-            )->build()
+            sprintf(
+                'The "%s" class has more than "%d" lines.',
+                $className,
+                $this->maximumLinesInClass
+            )
         ];
     }
 }

@@ -8,7 +8,6 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Rules\RuleError;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use yohanlaborda\behaviour\Tests\debug\Method\LongMethod;
@@ -77,7 +76,7 @@ final class LongMethodRuleTest extends TestCase
 
         self::assertSame(
             'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Method\LongMethod" class has more than "3" lines.',
-            $maximumLinesInMethodError instanceof RuleError ? $maximumLinesInMethodError->getMessage() : $maximumLinesInMethodError
+            $maximumLinesInMethodError
         );
     }
 

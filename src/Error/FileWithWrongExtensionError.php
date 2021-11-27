@@ -4,7 +4,6 @@ namespace yohanlaborda\behaviour\Error;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleErrorBuilder;
 use yohanlaborda\behaviour\Collection\BehaviourCollection;
 
 final class FileWithWrongExtensionError implements ErrorInterface
@@ -34,13 +33,11 @@ final class FileWithWrongExtensionError implements ErrorInterface
         $annotations = $this->collection->getAnnotations();
         foreach ($annotations as $annotation) {
             if ($annotation->hasError()) {
-                $errors[] = RuleErrorBuilder::message(
-                    sprintf(
-                        'The file "%s" extension is not one of the following: %s.',
-                        $annotation->getFile(),
-                        implode(', ', $this->extensions)
-                    )
-                )->build();
+                $errors[] = sprintf(
+                    'The file "%s" extension is not one of the following: %s.',
+                    $annotation->getFile(),
+                    implode(', ', $this->extensions)
+                );
             }
         }
 

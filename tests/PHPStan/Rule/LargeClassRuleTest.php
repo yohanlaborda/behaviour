@@ -7,7 +7,6 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleError;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -63,7 +62,7 @@ final class LargeClassRuleTest extends TestCase
 
         self::assertSame(
             'The "yohanlaborda\behaviour\Tests\debug\LargeClass" class has more than "3" lines.',
-            $largeClassError instanceof RuleError ? $largeClassError->getMessage() : $largeClassError
+            $largeClassError
         );
     }
 

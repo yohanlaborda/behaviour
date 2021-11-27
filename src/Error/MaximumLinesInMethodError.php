@@ -4,7 +4,6 @@ namespace yohanlaborda\behaviour\Error;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleErrorBuilder;
 use yohanlaborda\behaviour\Utility\ClassNameFromScope;
 use yohanlaborda\behaviour\Utility\MethodNameFromNode;
 
@@ -26,14 +25,12 @@ final class MaximumLinesInMethodError implements ErrorInterface
         $className = ClassNameFromScope::getName($scope);
 
         return [
-            RuleErrorBuilder::message(
-                sprintf(
-                    'The "%s" method of the "%s" class has more than "%d" lines.',
-                    $functionName,
-                    $className,
-                    $this->maximumLinesInMethod
-                )
-            )->build()
+            sprintf(
+                'The "%s" method of the "%s" class has more than "%d" lines.',
+                $functionName,
+                $className,
+                $this->maximumLinesInMethod
+            )
         ];
     }
 }

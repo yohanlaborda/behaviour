@@ -4,7 +4,6 @@ namespace yohanlaborda\behaviour\Validator;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleError;
 
 final class Validator
 {
@@ -12,7 +11,7 @@ final class Validator
     private Scope $scope;
 
     /**
-     * @var RuleError[]
+     * @var string[]
      */
     private array $errors = [];
 
@@ -24,7 +23,7 @@ final class Validator
 
     /**
      * @param ValidateList $validateList
-     * @return RuleError[]
+     * @return string[]
      */
     public function execute(ValidateList $validateList): array
     {

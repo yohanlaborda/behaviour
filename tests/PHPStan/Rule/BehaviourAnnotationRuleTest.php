@@ -7,7 +7,6 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Rules\RuleError;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -86,7 +85,7 @@ final class BehaviourAnnotationRuleTest extends TestCase
 
         self::assertSame(
             'The "execute" method of the "yohanlaborda\behaviour\Tests\debug\Behaviour\WithoutAnnotationService" class does not have the annotation @Behaviour.',
-            $fileNotExistError instanceof RuleError ? $fileNotExistError->getMessage() : $fileNotExistError
+            $fileNotExistError
         );
     }
 
@@ -119,11 +118,11 @@ final class BehaviourAnnotationRuleTest extends TestCase
         self::assertCount(2, $errors);
         self::assertSame(
             'The file "ERROR" not exist.',
-            $fileNotExistError instanceof RuleError ? $fileNotExistError->getMessage() : $fileNotExistError
+            $fileNotExistError
         );
         self::assertSame(
             'The file "ERROR" extension is not one of the following: feature, features.',
-            $fileWithWrongExtensionError->getMessage()
+            $fileWithWrongExtensionError
         );
     }
 

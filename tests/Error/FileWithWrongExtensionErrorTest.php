@@ -51,7 +51,7 @@ final class FileWithWrongExtensionErrorTest extends TestCase
 
         self::assertSame(
             'The file "error.feature" extension is not one of the following: feature, features.',
-            $firstError->getMessage()
+            $firstError
         );
     }
 }

@@ -51,7 +51,7 @@ final class FileNotExistErrorTest extends TestCase
 
         self::assertSame(
             'The file "error.feature" not exist.',
-            $firstError->getMessage()
+            $firstError
         );
     }
 }

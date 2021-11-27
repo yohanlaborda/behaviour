@@ -30,7 +30,7 @@ final class MaximumLinesInMethodErrorTest extends TestCase
 
         self::assertSame(
             'The "execute" method of the "ReflectionClass" class has more than "20" lines.',
-            $firstError->getMessage()
+            $firstError
         );
     }
 }

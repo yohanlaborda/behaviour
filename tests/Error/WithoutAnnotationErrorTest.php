@@ -30,7 +30,7 @@ final class WithoutAnnotationErrorTest extends TestCase
 
         self::assertSame(
             'The "execute" method of the "ReflectionClass" class does not have the annotation @Behaviour.',
-            $firstError->getMessage()
+            $firstError
         );
     }
 }

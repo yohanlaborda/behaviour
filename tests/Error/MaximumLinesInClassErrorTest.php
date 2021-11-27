@@ -26,7 +26,7 @@ final class MaximumLinesInClassErrorTest extends TestCase
 
         self::assertSame(
             'The "test\ReflectionClass" class has more than "200" lines.',
-            $firstError->getMessage()
+            $firstError
         );
     }
 }
